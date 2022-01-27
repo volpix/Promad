@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PromadModelStoreContainer" CdmEntityContainer="PromadEntities">
+    <EntitySetMapping Name="Productos">
+      <EntityTypeMapping TypeName="PromadModel.Productos">
+        <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proovedores">
+      <EntityTypeMapping TypeName="PromadModel.Proovedores">
+        <MappingFragment StoreEntitySet="Proovedores">
+          <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ProductosAdd" FunctionName="PromadModel.Store.ProductosAdd" />
+    <FunctionImportMapping FunctionImportName="ProductosGetAll" FunctionName="PromadModel.Store.ProductosGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PromadModel.ProductosGetAll_Result">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProovedoresAdd" FunctionName="PromadModel.Store.ProovedoresAdd" />
+    <FunctionImportMapping FunctionImportName="ProovedoresDelete" FunctionName="PromadModel.Store.ProovedoresDelete" />
+    <FunctionImportMapping FunctionImportName="ProovedoresGetById" FunctionName="PromadModel.Store.ProovedoresGetById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PromadModel.ProovedoresGetById_Result">
+          <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProovedoresUpdate" FunctionName="PromadModel.Store.ProovedoresUpdate" />
+    <FunctionImportMapping FunctionImportName="ProductosGetDeleteId" FunctionName="PromadModel.Store.ProductosGetDeleteId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PromadModel.ProductosGetDeleteId_Result">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProovedoresGetAll" FunctionName="PromadModel.Store.ProovedoresGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PromadModel.ProovedoresGetAll_Result">
+          <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+          <ScalarProperty Name="Productos" ColumnName="Productos" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

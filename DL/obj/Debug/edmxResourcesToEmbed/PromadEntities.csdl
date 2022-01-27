@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PromadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProovedor" Type="Int32" />
+    <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Unidad" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Costo" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Proovedores" Relationship="Self.Productos_Proovedores_FK" FromRole="Productos" ToRole="Proovedores" />
+  </EntityType>
+  <EntityType Name="Proovedores">
+    <Key>
+      <PropertyRef Name="IdProovedor" />
+    </Key>
+    <Property Name="IdProovedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="RazonSocial" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Productos" Relationship="Self.Productos_Proovedores_FK" FromRole="Proovedores" ToRole="Productos" />
+  </EntityType>
+  <Association Name="Productos_Proovedores_FK">
+    <End Role="Proovedores" Type="Self.Proovedores" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proovedores">
+        <PropertyRef Name="IdProovedor" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="IdProovedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PromadEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Productos" EntityType="Self.Productos" />
+    <EntitySet Name="Proovedores" EntityType="Self.Proovedores" />
+    <AssociationSet Name="Productos_Proovedores_FK" Association="Self.Productos_Proovedores_FK">
+      <End Role="Proovedores" EntitySet="Proovedores" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <FunctionImport Name="ProductosAdd">
+      <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+      <Parameter Name="Codigo" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Unidad" Mode="In" Type="String" />
+      <Parameter Name="Costo" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="ProductosGetAll" ReturnType="Collection(PromadModel.ProductosGetAll_Result)" />
+    <FunctionImport Name="ProovedoresAdd">
+      <Parameter Name="Codigo" Mode="In" Type="String" />
+      <Parameter Name="RazonSocial" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ProovedoresDelete">
+      <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProovedoresGetById" ReturnType="Collection(PromadModel.ProovedoresGetById_Result)">
+      <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProovedoresUpdate">
+      <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+      <Parameter Name="Codigo" Mode="In" Type="String" />
+      <Parameter Name="RazonSocial" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ProductosGetDeleteId" ReturnType="Collection(PromadModel.ProductosGetDeleteId_Result)">
+      <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProovedoresGetAll" ReturnType="Collection(PromadModel.ProovedoresGetAll_Result)" />
+  </EntityContainer>
+  <ComplexType Name="ProductosGetAll_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="Int32" Name="IdProovedor" Nullable="true" />
+    <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Unidad" Nullable="true" MaxLength="3" />
+    <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ProovedoresGetById_Result">
+    <Property Type="Int32" Name="IdProovedor" Nullable="false" />
+    <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+  </ComplexType>
+  <ComplexType Name="ProductosGetDeleteId_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="Int32" Name="IdProovedor" Nullable="true" />
+    <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Unidad" Nullable="true" MaxLength="3" />
+    <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ProovedoresGetAll_Result">
+    <Property Type="Int32" Name="IdProovedor" Nullable="false" />
+    <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+    <Property Type="Int32" Name="Productos" Nullable="true" />
+  </ComplexType>
+</Schema>

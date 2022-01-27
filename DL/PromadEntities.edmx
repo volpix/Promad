@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PromadModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProovedor" Type="int" />
+          <Property Name="Codigo" Type="varchar" MaxLength="20" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+          <Property Name="Unidad" Type="varchar" MaxLength="3" />
+          <Property Name="Costo" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Proovedores">
+          <Key>
+            <PropertyRef Name="IdProovedor" />
+          </Key>
+          <Property Name="IdProovedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="20" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="150" />
+          <Property Name="RFC" Type="varchar" MaxLength="13" />
+        </EntityType>
+        <Association Name="Productos_Proovedores_FK">
+          <End Role="Proovedores" Type="Self.Proovedores" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proovedores">
+              <PropertyRef Name="IdProovedor" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdProovedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ProductosAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProovedor" Type="int" Mode="In" />
+          <Parameter Name="Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Unidad" Type="varchar" Mode="In" />
+          <Parameter Name="Costo" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="ProductosGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProductosGetDeleteId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProovedor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProovedoresAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="RazonSocial" Type="varchar" Mode="In" />
+          <Parameter Name="RFC" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ProovedoresDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProovedor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProovedoresGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProovedoresGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProovedor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProovedoresUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProovedor" Type="int" Mode="In" />
+          <Parameter Name="Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="RazonSocial" Type="varchar" Mode="In" />
+          <Parameter Name="RFC" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PromadModelStoreContainer">
+          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proovedores" EntityType="Self.Proovedores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Productos_Proovedores_FK" Association="Self.Productos_Proovedores_FK">
+            <End Role="Proovedores" EntitySet="Proovedores" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PromadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProovedor" Type="Int32" />
+          <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Unidad" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Costo" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Proovedores" Relationship="Self.Productos_Proovedores_FK" FromRole="Productos" ToRole="Proovedores" />
+        </EntityType>
+        <EntityType Name="Proovedores">
+          <Key>
+            <PropertyRef Name="IdProovedor" />
+          </Key>
+          <Property Name="IdProovedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RazonSocial" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Productos" Relationship="Self.Productos_Proovedores_FK" FromRole="Proovedores" ToRole="Productos" />
+        </EntityType>
+        <Association Name="Productos_Proovedores_FK">
+          <End Role="Proovedores" Type="Self.Proovedores" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proovedores">
+              <PropertyRef Name="IdProovedor" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdProovedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PromadEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Productos" EntityType="Self.Productos" />
+          <EntitySet Name="Proovedores" EntityType="Self.Proovedores" />
+          <AssociationSet Name="Productos_Proovedores_FK" Association="Self.Productos_Proovedores_FK">
+            <End Role="Proovedores" EntitySet="Proovedores" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <FunctionImport Name="ProductosAdd">
+            <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+            <Parameter Name="Codigo" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Unidad" Mode="In" Type="String" />
+            <Parameter Name="Costo" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ProductosGetAll" ReturnType="Collection(PromadModel.ProductosGetAll_Result)" />
+          <FunctionImport Name="ProovedoresAdd">
+            <Parameter Name="Codigo" Mode="In" Type="String" />
+            <Parameter Name="RazonSocial" Mode="In" Type="String" />
+            <Parameter Name="RFC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProovedoresDelete">
+          <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProovedoresGetById" ReturnType="Collection(PromadModel.ProovedoresGetById_Result)">
+          <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProovedoresUpdate">
+            <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+            <Parameter Name="Codigo" Mode="In" Type="String" />
+            <Parameter Name="RazonSocial" Mode="In" Type="String" />
+            <Parameter Name="RFC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProductosGetDeleteId" ReturnType="Collection(PromadModel.ProductosGetDeleteId_Result)">
+          <Parameter Name="IdProovedor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProovedoresGetAll" ReturnType="Collection(PromadModel.ProovedoresGetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="ProductosGetAll_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="Int32" Name="IdProovedor" Nullable="true" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Unidad" Nullable="true" MaxLength="3" />
+          <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ProovedoresGetById_Result">
+          <Property Type="Int32" Name="IdProovedor" Nullable="false" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="ProductosGetDeleteId_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="Int32" Name="IdProovedor" Nullable="true" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Unidad" Nullable="true" MaxLength="3" />
+          <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ProovedoresGetAll_Result">
+          <Property Type="Int32" Name="IdProovedor" Nullable="false" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+          <Property Type="Int32" Name="Productos" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PromadModelStoreContainer" CdmEntityContainer="PromadEntities">
+          <EntitySetMapping Name="Productos">
+            <EntityTypeMapping TypeName="PromadModel.Productos">
+              <MappingFragment StoreEntitySet="Productos">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proovedores">
+            <EntityTypeMapping TypeName="PromadModel.Proovedores">
+              <MappingFragment StoreEntitySet="Proovedores">
+                <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ProductosAdd" FunctionName="PromadModel.Store.ProductosAdd" />
+          <FunctionImportMapping FunctionImportName="ProductosGetAll" FunctionName="PromadModel.Store.ProductosGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PromadModel.ProductosGetAll_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProovedoresAdd" FunctionName="PromadModel.Store.ProovedoresAdd" />
+          <FunctionImportMapping FunctionImportName="ProovedoresDelete" FunctionName="PromadModel.Store.ProovedoresDelete" />
+          <FunctionImportMapping FunctionImportName="ProovedoresGetById" FunctionName="PromadModel.Store.ProovedoresGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PromadModel.ProovedoresGetById_Result">
+                <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProovedoresUpdate" FunctionName="PromadModel.Store.ProovedoresUpdate" />
+          <FunctionImportMapping FunctionImportName="ProductosGetDeleteId" FunctionName="PromadModel.Store.ProductosGetDeleteId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PromadModel.ProductosGetDeleteId_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProovedoresGetAll" FunctionName="PromadModel.Store.ProovedoresGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PromadModel.ProovedoresGetAll_Result">
+                <ScalarProperty Name="IdProovedor" ColumnName="IdProovedor" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Productos" ColumnName="Productos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

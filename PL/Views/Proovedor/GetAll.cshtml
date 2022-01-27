@@ -1,0 +1,62 @@
+﻿@model BL.Proovedor
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Proovedores</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione + para registrar a un Proovedor </h5>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-offset-11 text-right">
+            @Html.ActionLink("+", "Form", "Proovedor", htmlAttributes: new { @class = "btn btn-success glyphicon" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr class="text-center">
+                        <td>Editar</td>
+                        <td class="hidden">IdProovedor</td>
+                        <td>Codigo</td>
+                        <td>RazonSocial</td>
+                        <td>RFC</td>
+                        <td>Eliminar</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BL.Proovedor proovedor in Model.Proovedores)
+                    {
+                        <tr class="text-center">
+                            <td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Proovedor", new { IdProovedor = proovedor.IdProovedor })"></a></td>
+                            <td class="hidden">@proovedor.IdProovedor</td>
+                            <td>@proovedor.Codigo</td>
+                            <td>@proovedor.RazonSocial</td>
+                            <td>@proovedor.RFC</td>
+                            @if(proovedor.ContadorProductos>0)
+                            {
+                                <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Proovedor", new { IdProovedor = proovedor.IdProovedor })" onclick="return confirm('¿Estas seguro que deseas eliminar este registro que tiene asociados productos?');"></a></td>
+                            }
+                            else
+                            {
+                                <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Proovedor", new { IdProovedor = proovedor.IdProovedor })"></a></td>
+                            }
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model BL.Producto
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Productos</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione + para registrar un Prodcuto </h5>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-offset-11 text-right">
+            @Html.ActionLink("+", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success glyphicon" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr class="text-center">
+                        <td class="hidden">IdProducto</td>
+                        <td>IdProovedor</td>
+                        <td>Codigo</td>
+                        <td>Descripcion</td>
+                        <td>Unidad</td>
+                        <td>Costo</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BL.Producto producto in Model.Productos)
+                    {
+                        <tr class="text-center">
+                            <td class="hidden">@producto.IdProducto</td>
+                            <td>@producto.Proovedor.IdProovedor</td>
+                            <td>@producto.Codigo</td>
+                            <td>@producto.Descripcion</td>
+                            <td>@producto.Unidad</td>
+                            <td>@producto.Costo</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

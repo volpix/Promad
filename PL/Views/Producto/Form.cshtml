@@ -1,0 +1,78 @@
+﻿@model BL.Producto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Proovedores</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Proovedor)
+                            @Html.DropDownListFor(model => model.Proovedor.IdProovedor, new SelectList(Model.Proovedor.Proovedores, "IdProovedor", "RazonSocial"), "Seleccione una Opcion", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Codigo)
+                            @Html.TextBoxFor(model => model.Codigo, new { @class = "form-control", @id = "txtCodigo", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Descripcion)
+                            @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", @id = "txtDescripcion", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Unidad)
+                            @Html.TextBoxFor(model => model.Unidad, new { @class = "form-control", @id = "txtUnidad", autocomplete = "off" })
+                            
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Costo)
+                            @Html.TextBoxFor(model => model.Costo, "{0:#.#}", new { @class = "form-control", @id = "txtCosto", autocomplete = "off" })
+
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.IdProducto, new { @class = "hidden" })
+                            @Html.TextBoxFor(model => model.IdProducto, new { @class = "hidden form-control", autocomplete = "off" })
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <input type="submit" value="Guardar" class="btn btn-success" />
+                                @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger", autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
